@@ -10,6 +10,8 @@ import { AppComponent } from './app.component';
 import 'hammerjs';
 
 import { TabletClientComponent } from './tablet-client/tablet-client.component';
+import { ApiRestService } from './api-rest.service';
+import { SnackService } from './snack.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,10 @@ import { TabletClientComponent } from './tablet-client/tablet-client.component';
     BrowserAnimationsModule,
     NgbModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    ApiRestService,
+    SnackService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
