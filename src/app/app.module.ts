@@ -4,9 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import 'hammerjs';
+
 import { TabletClientComponent } from './tablet-client/tablet-client.component';
 
 @NgModule({
@@ -19,7 +21,8 @@ import { TabletClientComponent } from './tablet-client/tablet-client.component';
     FormsModule,
     HttpModule,
     MaterialModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgbModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
