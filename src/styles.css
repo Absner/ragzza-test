@@ -1,1 +1,40 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+body{
+    margin: 0px;
+    background-color: #f4f4f4;
+}
+.center{
+    text-align: center;
+}
+.palette-1{background: #ebebeb;}
+.palette-2{background: #bcbcbc;}
+
+.text-color-1{ color: #673ab7;}
+.text-color-2{ color: #ffffff;}
+.padding-all{
+    padding-bottom: 50px;
+    padding-top: 90px;
+}
+
+.social-icon {
+  color: #696969;
+  font-size: 24px!important;
+  cursor: pointer !important;
+}
+
+.social-icon:focus {
+  outline: 0;
+}
+.social-black {
+  color: rgb(53, 53, 53);
+}
+.f400 {
+  font-weight: 400;
+}
+.s18 {
+  font-size: 18px!important;
+}
+.s24{
+  font-size: 24px!important;
+}
