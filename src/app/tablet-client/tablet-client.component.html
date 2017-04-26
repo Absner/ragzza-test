@@ -2,23 +2,23 @@
 <div class="container-fluid">
   <div class="row" style="margin-bottom: 10px;margin-top:30px;padding-left:10px;height: 50px!important;">
       
-      <div class="col-md-6">
+      <div class="col-md-11">
         <span class="s24">Apartado dirigido a la <span class="text-color-1">Gestión de clientes</span>.</span>
       </div>
       <div class="col-md-1" style="margin-top:-7px; float: right" align="center">
-      <div mdTooltip="Nuevo" (click)="newModal.show()" class="button" md-ripple md-mini-fab data-dismiss="modal" aria-hidden="true">
+      <div mdTooltip="Nuevo" (click)="open(content)" class="button" md-ripple md-mini-fab data-dismiss="modal" aria-hidden="true">
         <md-icon>add</md-icon>
       </div>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-md-10 col-md-offset-1">
+    <div class="col-md-10 offset-md-1">
       <md-card>
         <div class="listaRSS">
           <div class="listaRSS-header">
             <div class="row">
-              <div class="col-md-3 col-md-offset-1"><span class="roboto- s18 f400 social-black">Nombre</span></div>
+              <div class="col-md-3 offset-md-1"><span class="roboto- s18 f400 social-black">Nombre</span></div>
               <div class="col-md-2"><span class="roboto-font s18 f400 social-black">Pais</span></div>
               <div class="col-md-3"><span class="roboto-font s18 f400 social-black">Email</span></div>
               <div class="col-md-2"><span class="roboto-font s18 f400 social-black">Acciones</span></div>
@@ -28,12 +28,12 @@
         
           <div class="listaRSS-body">
             <div *ngFor="let data of getClients" class="row listaRSS-element">
-              <div class="col-md-3 col-md-offset-1 elipsis">{{data.name}}</div>
+              <div class="col-md-3 offset-md-1 elipsis">{{data.name}}</div>
               <div class="col-md-2 elipsis">{{data.country}}</div>
               <div class="col-md-3 elipsis">{{data.email}}</div>
               <div class="col-md-2 iconosrss">
-                <i mdTooltip="Ver" class="material-icons social-icon" (click)="lgModal.show();viewDataClient(data)">search</i>
-                <i mdTooltip="Editar" class="material-icons social-icon" (click)="lSModal.show();editDataClient(data)">mode_edit</i>
+                <i mdTooltip="Ver" class="material-icons social-icon" (click)="open(contentView);viewDataClient(data)">search</i>
+                <i mdTooltip="Editar" class="material-icons social-icon" (click)="open(contentEdit);editDataClient(data)">mode_edit</i>
                 <i mdTooltip="Eliminar" class="material-icons social-icon" (click)="rmClient(data._id)">delete</i>
               </div>
             </div>
@@ -44,7 +44,130 @@
   </div>
 </div>
 
+<ng-template class="modal" #content let-c="close" let-d="dismiss">
 
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Nuevo cliente</h4>
+        <button type="button" class="close pull-right" (click)="d('Cross click')" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+          <form [formGroup]="formClient">
+
+          <md-input-container>
+            <input mdInput type="text" name="name" formControlName="name"  placeholder="Nombre">
+          </md-input-container>
+          <md-input-container>
+            <input mdInput type="text" name="country" formControlName="country" placeholder="Pais">
+          </md-input-container>
+          <md-input-container>
+            <input mdInput type="text" name="email" formControlName="email"  placeholder="Correo">
+          </md-input-container>
+          <md-input-container>
+            <input mdInput type="number" name="phone" formControlName="phone"  placeholder="Telefono">
+          </md-input-container>
+
+          <md-input-container class="example-full-width">
+            <textarea mdInput formControlName="address" placeholder="Dirección"></textarea>
+          </md-input-container>
+          
+            
+          <div style="text-align: right">
+            <button  (click)="c('Close click')" md-raised-button aria-label="Close">Cerrar</button>
+            <button (click)="addClient();c('Close click')" md-raised-button [disabled]="!formClient.valid">Crear</button>
+          </div>
+          </form>
+
+      </div>
+    </div>
+
+</ng-template>
+
+
+<ng-template class="modal" #contentEdit let-c="close" let-d="dismiss">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Editar Cliente</h4>
+        <button type="button" class="close pull-right" (click)="c('Close click')" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container form">
+
+          <md-input-container>
+            <input mdInput type="text" name="name" [(ngModel)]="clientName"  placeholder="Nombre">
+          </md-input-container>
+          <md-input-container>
+            <input mdInput type="text" name="country" [(ngModel)]="clientCountry" placeholder="Pais">
+          </md-input-container>
+          <md-input-container>
+            <input mdInput type="text" name="email" [(ngModel)]="clientEmail"  placeholder="Correo">
+          </md-input-container>
+          <md-input-container>
+            <input mdInput type="text" name="phone" [(ngModel)]="clientPhone"  placeholder="Telefono">
+          </md-input-container>
+
+          <md-input-container class="example-full-width">
+            <textarea mdInput [(ngModel)]="clientAddress" placeholder="Dirección"></textarea>
+          </md-input-container>
+          
+            
+          <div style="text-align: right">
+            <button  (click)="c('Close click')" md-raised-button aria-label="Close">Cerrar</button>
+            <button (click)="c('Close click');updateClient()" md-raised-button>Actualizar</button>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+
+</ng-template>
+
+<ng-template class="modal" #contentView let-c="close" let-d="dismiss">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Ver</h4>
+        <button type="button" class="close pull-right" (click)="c('Close click')" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container form">
+
+          <md-input-container>
+            <input mdInput type="text" name="name" disabled placeholder="Nombre" [value]="clientName">
+          </md-input-container>
+          <md-input-container>
+            <input mdInput type="text" name="country" disabled placeholder="Pais" [value]="clientCountry">
+          </md-input-container>
+          <md-input-container>
+            <input mdInput type="text" name="email" disabled placeholder="Correo" [value]="clientEmail">
+          </md-input-container>
+          <md-input-container>
+            <input mdInput type="text" name="phone" disabled placeholder="Telefono" [value]="clientPhone">
+          </md-input-container>
+
+          <md-input-container class="example-full-width">
+            <textarea mdInput disabled  placeholder="Dirección">{{clientAddress}}</textarea>
+          </md-input-container>
+
+          <div style="text-align: right">
+            <button (click)="c('Close click')" aria-label="Close" md-raised-button>Cerrar</button>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+
+</ng-template>
 <!-- 
 
 <div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
